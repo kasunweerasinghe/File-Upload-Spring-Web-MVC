@@ -9,9 +9,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>File Upload</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
 
+<section class="container mt-4">
+
+    <div class="col-6">
+        <form>
+            <input id="file" name="myFile" type="file" class="form-control">
+            <button type="button" id="btnUpload" class="btn btn-primary mt-2">Upload File</button>
+        </form>
+    </div>
+
+
+    <div class="col-8 mt-4">
+        <div id="display" class="border" style="height: 250px"></div>
+        <button type="button" id="btnLoad" class="btn btn-outline-success mt-2">Load</button>
+
+    </div>
+</section>
 </body>
 </html>
