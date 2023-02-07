@@ -30,5 +30,37 @@
 
     </div>
 </section>
+
+<script src="css/bootstrap.min.css"></script>
+<script src="js/jquery-3.6.1.min.js"></script>
+
+<script>
+
+    let baseUrl = "http://localhost:8080/FileUploadBackEnd_war/";
+
+    $("#btnLoad").click(function () {
+        var data = new FormData();
+        let file = $("#file")[0].files[0];
+        let fileName = $("#file")[0].files[0].name;
+        data.append("myFile", file, fileName);
+
+        $.ajax({
+            url: baseUrl + "api/V1/upload",
+            method: 'post',
+            async: true,
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (resp) {
+                alert("Successfully Uploaded");
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    });
+
+
+</script>
 </body>
 </html>
