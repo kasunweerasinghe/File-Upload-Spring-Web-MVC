@@ -16,29 +16,32 @@
 
 <section class="container mt-4">
 
-    <div class="col-6">
-        <form>
-            <input id="file" name="myFile" type="file" class="form-control">
-            <button type="button" id="btnUpload" class="btn btn-primary mt-2">Upload File</button>
-        </form>
+    <div class="row justify-content-around">
+
+        <div class="col-9">
+            <form>
+                <input id="file" name="myFile" type="file" class="form-control">
+                <button type="button" id="btnUpload" class="btn btn-primary mt-3">Upload</button>
+            </form>
+        </div>
+
+        <div class="col-5">
+            <div id="display" class="border border-1, w-100" style="height: 350px"></div>
+            <button type="button" id="btnLoad" class="btn btn-outline-success mt-3">Load Image</button>
+
+        </div>
     </div>
 
-
-    <div class="col-8 mt-4">
-        <div id="display" class="border" style="height: 250px"></div>
-        <button type="button" id="btnLoad" class="btn btn-outline-success mt-2">Load</button>
-
-    </div>
 </section>
 
-<script src="css/bootstrap.min.css"></script>
-<script src="js/jquery-3.6.1.min.js"></script>
 
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery-3.6.1.min.js"></script>
 <script>
 
-    let baseUrl = "http://localhost:8080/FileUploadBackEnd_war/";
+    let baseUrl =  "http://localhost:8080/FileUploadBackEnd_war/";
 
-    loadImage();
+    loadUploadedImage();
 
     $("#btnUpload").click(function () {
         var data = new FormData();
@@ -47,7 +50,7 @@
         data.append("myFile", file, fileName);
 
         $.ajax({
-            url: baseUrl + "api/v1/upload",
+            url: baseUrl + "upload",
             method: 'post',
             async: true,
             contentType: false,
@@ -55,7 +58,7 @@
             data: data,
             success: function (resp) {
                 alert("Successfully Uploaded");
-                loadImage();
+                loadUploadedImage();
             },
             error: function (err) {
                 console.log(err);
@@ -64,13 +67,12 @@
     });
 
     $("#btnLoad").click(function () {
-        loadImage();
+        loadUploadedImage();
     });
 
-
-    function loadImage() {
+    function loadUploadedImage() {
         $.ajax({
-            url: baseUrl + "api/v1/upload",
+            url: baseUrl + "upload",
             method: 'get',
             dataType: 'json',
             success: function (resp) {
@@ -79,9 +81,8 @@
                 $("#display").css({
                     "background": `url(${baseUrl + url})`,
                     "background-size": "cover",
-                    "height": "300px"
+                    "height": "350px",
                 });
-
             },
             error: function (err) {
                 console.log(err);
@@ -90,5 +91,8 @@
     }
 
 </script>
+
+
+
 </body>
 </html>
