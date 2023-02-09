@@ -38,14 +38,16 @@
 
     let baseUrl = "http://localhost:8080/FileUploadBackEnd_war/";
 
-    $("#btnLoad").click(function () {
+    loadImage();
+
+    $("#btnUpload").click(function () {
         var data = new FormData();
         let file = $("#file")[0].files[0];
         let fileName = $("#file")[0].files[0].name;
         data.append("myFile", file, fileName);
 
         $.ajax({
-            url: baseUrl + "upload",
+            url: baseUrl + "api/v1/upload",
             method: 'post',
             async: true,
             contentType: false,
@@ -53,6 +55,7 @@
             data: data,
             success: function (resp) {
                 alert("Successfully Uploaded");
+                loadImage();
             },
             error: function (err) {
                 console.log(err);
@@ -60,6 +63,31 @@
         });
     });
 
+    $("#btnLoad").click(function () {
+        loadImage();
+    });
+
+
+    function loadImage() {
+        $.ajax({
+            url: baseUrl + "api/v1/upload",
+            method: 'get',
+            dataType: 'json',
+            success: function (resp) {
+                let url = resp[resp.length - 1];
+
+                $("#display").css({
+                    "background": `url(${baseUrl + url})`,
+                    "background-size": "cover",
+                    "height": "300px"
+                });
+
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
 
 </script>
 </body>
